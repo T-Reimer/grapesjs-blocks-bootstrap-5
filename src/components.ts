@@ -83,7 +83,7 @@ export default (editor: Editor, config: PluginConfig) => {
 
     if (blocks.video) {
       Embed(domc);
-      VideoBlock(bm, config.labels.video);
+      VideoBlock(editor, config.labels.video);
       Video(domc);
     }
   }

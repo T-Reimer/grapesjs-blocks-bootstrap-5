@@ -1,6 +1,8 @@
+import { ComponentManager, Editor } from "grapesjs";
 import videoIcon from "../../icons/youtube-brands.svg";
 
-export const VideoBlock = (bm, label) => {
+export const VideoBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("bs-video", {
     label: `
             ${videoIcon}
@@ -13,8 +15,12 @@ export const VideoBlock = (bm, label) => {
   });
 };
 
-export default (domComponent) => {
+export default (domComponent: ComponentManager) => {
   const videoType = domComponent.getType("video");
+  if (!videoType) {
+    return;
+  }
+
   const model = videoType.model;
   const view = videoType.view;
   const type = "bs-embed-responsive";
@@ -32,9 +38,15 @@ export default (domComponent) => {
         classes: ["embed-responsive-item"],
       }),
     },
-    isComponent: function (el) {
+    isComponent: function (element) {
+      const el = element as HTMLVideoElement | HTMLIFrameElement;
+
       if (el && el.className === "embed-responsive-item") {
-        var result = {
+        var result: {
+          provider: string;
+          type: string;
+          src?: string;
+        } = {
           provider: "so",
           type: type,
         };
@@ -42,6 +54,7 @@ export default (domComponent) => {
         var isYtncProv = /youtube-nocookie\.com\/embed/.test(el.src);
         var isViProv = /player\.vimeo\.com\/video/.test(el.src);
         var isExtProv = isYtProv || isYtncProv || isViProv;
+
         if (el.tagName == "VIDEO" || (el.tagName == "IFRAME" && isExtProv)) {
           if (el.src) result.src = el.src;
           if (isExtProv) {
