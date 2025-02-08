@@ -1,12 +1,12 @@
-import formGroupIcon from "raw-loader!../icons/form-group.svg";
-import inputGroupIcon from "raw-loader!../icons/input-group.svg";
+import formGroupIcon from "../icons/form-group.svg";
+import inputGroupIcon from "../icons/input-group.svg";
 
 export const InputGroupBlock = (bm, label, c) => {
-  bm.add('form_group_input', {
+  bm.add("form_group_input", {
     label: `
       ${formGroupIcon}
       <div>${label}</div>`,
-    category: 'Forms (Bootstrap)',
+    category: "Forms (Bootstrap)",
     content: `
       <div class="mb-3">
         <label>Name</label>
@@ -15,11 +15,11 @@ export const InputGroupBlock = (bm, label, c) => {
       `,
   });
 
-  bm.add('input_group', {
+  bm.add("input_group", {
     label: `
       ${inputGroupIcon}
       <div>${label}</div>`,
-    category: 'Forms (Bootstrap)',
+    category: "Forms (Bootstrap)",
     content: `
       <div class="input-group">
         <div class="input-group-prepend">
@@ -35,24 +35,24 @@ export const InputGroupBlock = (bm, label, c) => {
 };
 
 export default (dc, traits, config = {}) => {
-  const defaultType = dc.getType('default');
+  const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;
 
-  dc.addType('input_group', {
+  dc.addType("input_group", {
     model: {
       defaults: {
         ...defaultModel.prototype.defaults,
-        'custom-name': config.labels.input_group,
-        tagName: 'div',
+        "custom-name": config.labels.input_group,
+        tagName: "div",
         traits: [],
       },
     },
     isComponent(el) {
-      if (el && el.classList && el.classList.contains('form_group_input')) {
-        return { type: 'form_group_input' };
+      if (el && el.classList && el.classList.contains("form_group_input")) {
+        return { type: "form_group_input" };
       }
     },
     view: defaultView,
   });
-}
+};

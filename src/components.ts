@@ -1,40 +1,120 @@
-import Collapse, {CollapseBlock} from './components/Collapse';
-import Dropdown, {DropDownBlock} from './components/Dropdown';
-import TabsNavigation, {TabsBlock} from "./components/tabs/TabsNavigation";
-import TabsPanes from "./components/tabs/TabsPanes";
+import { Editor } from "grapesjs";
+import Alert, { AlertBlock } from "./components/Alert";
+import Badge, { BadgeBlock } from "./components/Badge";
+import Button, { ButtonBlock } from "./components/Button";
+import ButtonGroup, { ButtonGroupBlock } from "./components/ButtonGroup";
+import ButtonToolbar, { ButtonToolbarBlock } from "./components/ButtonToolbar";
+import Card, { CardBlock } from "./components/Card";
+import Checkbox, { CheckboxBlock } from "./components/Checkbox";
+import Collapse, { CollapseBlock } from "./components/Collapse";
+import Column, { ColumnBlock } from "./components/Column";
+import ColumnBreak, { ColumnBreakBlock } from "./components/ColumnBreak";
+import Container, { ContainerBlock } from "./components/Container";
+import Default from "./components/Default";
+import Dropdown, { DropDownBlock } from "./components/Dropdown";
+import FileInput, { FileInputBlock } from "./components/FileInput";
+import Form, { FormBlock } from "./components/Form";
+import Header, { HeaderBlock } from "./components/Header";
+import Image, { ImageBlock } from "./components/Image";
+import Input, { InputBlock } from "./components/Input";
+import InputGroup, { InputGroupBlock } from "./components/InputGroup";
+import Label, { LabelBlock } from "./components/Label";
+import Link, { LinkBlock } from "./components/Link";
+import MediaObject, { MediaObjectBlock } from "./components/MediaObject";
+import Paragraph, { ParagraphBlock } from "./components/Paragraph";
+import Radio, { RadioBlock } from "./components/Radio";
+import Row, { RowBlock } from "./components/Row";
+import Select, { SelectBlock } from "./components/Select";
 import Tab from "./components/tabs/Tab";
 import TabPane from "./components/tabs/TabPane";
-import Form, {FormBlock} from "./components/Form";
-import Input, {InputBlock} from "./components/Input";
-import InputGroup, {InputGroupBlock} from "./components/InputGroup";
-import Textarea, {TextareaBlock} from "./components/Textarea";
-import Select, {SelectBlock} from "./components/Select";
-import Checkbox, {CheckboxBlock} from "./components/Checkbox";
-import Radio, {RadioBlock} from "./components/Radio";
-import Button, {ButtonBlock} from "./components/Button";
-import ButtonGroup, {ButtonGroupBlock} from "./components/ButtonGroup";
-import ButtonToolbar, {ButtonToolbarBlock} from "./components/ButtonToolbar";
-import Label, {LabelBlock} from "./components/Label";
-import Link, {LinkBlock} from "./components/Link";
-import FileInput, {FileInputBlock} from "./components/FileInput";
-import Image, {ImageBlock} from "./components/Image";
-import Video, {VideoBlock} from "./components/video/Video";
+import TabsNavigation, { TabsBlock } from "./components/tabs/TabsNavigation";
+import TabsPanes from "./components/tabs/TabsPanes";
+import Text, { TextBlock } from "./components/Text";
+import Textarea, { TextareaBlock } from "./components/Textarea";
 import Embed from "./components/video/Embed";
-import Paragraph, {ParagraphBlock} from "./components/Paragraph";
-import Header, {HeaderBlock} from "./components/Header";
-import Card, {CardBlock} from "./components/Card";
-import Badge, {BadgeBlock} from "./components/Badge";
-import Alert, {AlertBlock} from "./components/Alert";
-import MediaObject, {MediaObjectBlock} from "./components/MediaObject";
-import ColumnBreak, {ColumnBreakBlock} from "./components/ColumnBreak";
-import Column, {ColumnBlock} from "./components/Column";
-import Row, {RowBlock} from "./components/Row";
-import Container, {ContainerBlock} from "./components/Container";
-import Text, {TextBlock} from "./components/Text";
-import Default from "./components/Default";
+import Video, { VideoBlock } from "./components/video/Video";
 
+export interface ComponentsConfig {
+  blocks: {
+    image: boolean;
+    video: boolean;
+    default: boolean;
+    text: boolean;
+    link: boolean;
+    container: boolean;
+    row: boolean;
+    column: boolean;
+    column_break: boolean;
+    media_object: boolean;
+    alert: boolean;
+    tabs: boolean;
+    badge: boolean;
+    card: boolean;
+    collapse: boolean;
+    dropdown: boolean;
+    header: boolean;
+    paragraph: boolean;
+    form: boolean;
+    input: boolean;
+    form_group_input: boolean;
+    textarea: boolean;
+    select: boolean;
+    checkbox: boolean;
+    radio: boolean;
+    label: boolean;
+    button: boolean;
+    button_group: boolean;
+    button_toolbar: boolean;
+  };
+  blockCategories: {
+    media: boolean;
+    basic: boolean;
+    layout: boolean;
+    components: boolean;
+    typography: boolean;
+    forms: boolean;
+  };
+  labels: {
+    trait_id: string;
+    trait_for: string;
+    trait_name: string;
+    trait_placeholder: string;
+    trait_value: string;
+    trait_required: string;
+    trait_checked: string;
+    image: string;
+    video: string;
+    text: string;
+    link: string;
+    container: string;
+    row: string;
+    column: string;
+    column_break: string;
+    media_object: string;
+    alert: string;
+    tabs: string;
+    badge: string;
+    card: string;
+    collapse: string;
+    dropdown: string;
+    header: string;
+    paragraph: string;
+    form: string;
+    input: string;
+    file_input: string;
+    form_group_input: string;
+    textarea: string;
+    select: string;
+    checkbox: string;
+    radio: string;
+    label: string;
+    button: string;
+    button_group: string;
+    button_toolbar: string;
+  };
+}
 
-export default (editor, config = {}) => {
+export default (editor: Editor, config: ComponentsConfig) => {
   const c = config;
   const domc = editor.DomComponents;
   const blocks = c.blocks;
@@ -43,36 +123,36 @@ export default (editor, config = {}) => {
 
   const traits = {
     id: {
-      name: 'id',
+      name: "id",
       label: c.labels.trait_id,
     },
     for: {
-      name: 'for',
+      name: "for",
       label: c.labels.trait_for,
     },
     name: {
-      name: 'name',
+      name: "name",
       label: c.labels.trait_name,
     },
     placeholder: {
-      name: 'placeholder',
+      name: "placeholder",
       label: c.labels.trait_placeholder,
     },
     value: {
-      name: 'value',
+      name: "value",
       label: c.labels.trait_value,
     },
     required: {
-      type: 'checkbox',
-      name: 'required',
+      type: "checkbox",
+      name: "required",
       label: c.labels.trait_required,
     },
     checked: {
       label: c.labels.trait_checked,
-      type: 'checkbox',
-      name: 'checked',
-      changeProp: 1
-    }
+      type: "checkbox",
+      name: "checked",
+      changeProp: 1,
+    },
   };
 
   if (cats.media) {
@@ -114,7 +194,6 @@ export default (editor, config = {}) => {
 
     /*if (blocks.description_list) {
     }*/
-
   }
 
   // LAYOUT
@@ -180,7 +259,6 @@ export default (editor, config = {}) => {
       DropDownBlock(bm, c.labels.dropdown);
       Dropdown(editor);
     }
-
   }
 
   // TYPOGRAPHY
@@ -195,7 +273,7 @@ export default (editor, config = {}) => {
     }
   }
 
-  if(cats.forms) {
+  if (cats.forms) {
     if (blocks.form) {
       FormBlock(bm, c.labels.form);
       Form(domc, traits, config);
@@ -250,9 +328,8 @@ export default (editor, config = {}) => {
     }
 
     if (blocks.button_toolbar) {
-      ButtonToolbarBlock(bm, c.labels.button_toolbar, c);
+      ButtonToolbarBlock(bm, c.labels.button_toolbar);
       ButtonToolbar(domc);
     }
   }
-
-}
+};

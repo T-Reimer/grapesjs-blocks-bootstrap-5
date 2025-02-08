@@ -1,40 +1,40 @@
-import compressIcon from "raw-loader!../icons/compress-solid.svg";
+import compressIcon from "../icons/compress-solid.svg";
 
 export const CollapseBlock = (bm, label) => {
-  bm.add('collapse', {
+  bm.add("collapse", {
     label: `
             ${compressIcon}
             <div>${label}</div>
         `,
-    category: 'Components (Bootstrap)',
+    category: "Components (Bootstrap)",
     content: {
-      type: 'collapse'
-    }
+      type: "collapse",
+    },
   });
 };
 
 export default (editor) => {
   const comps = editor.DomComponents;
-  const defaultType = comps.getType('default');
+  const defaultType = comps.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;
 
-  comps.addType('collapse', {
+  comps.addType("collapse", {
     model: {
       defaults: Object.assign({}, defaultModel.prototype.defaults, {
-        'custom-name': 'Dropdown',
-        classes: ['collapse'],
+        "custom-name": "Dropdown",
+        classes: ["collapse"],
         droppable: true,
         traits: [
           {
-            type: 'class_select',
+            type: "class_select",
             options: [
-              { value: '', name: 'Closed' },
-              { value: 'show', name: 'Open' }
+              { value: "", name: "Closed" },
+              { value: "show", name: "Open" },
             ],
-            label: 'Initial state'
-          }
-        ].concat(defaultModel.prototype.defaults.traits)
+            label: "Initial state",
+          },
+        ].concat(defaultModel.prototype.defaults.traits),
       }),
       /*init2() {
         window.asdf = this;
@@ -109,15 +109,14 @@ export default (editor) => {
       }*/
     },
     isComponent(el) {
-      if (el && el.classList && el.classList.contains('dropdown')) {
-        return { type: 'dropdown' };
+      if (el && el.classList && el.classList.contains("dropdown")) {
+        return { type: "dropdown" };
       }
     },
     view: {
       /*init() {
         this.model.setupToggle
       }*/
-    }
+    },
   });
-
-}
+};
