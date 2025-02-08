@@ -1,6 +1,7 @@
 import { Editor } from "grapesjs";
 import loadCommands from "./commands";
-import loadComponents, { ComponentsConfig } from "./components";
+import loadComponents from "./components";
+import { PartialPluginConfig, PluginConfig } from "./config";
 import loadDevices from "./devices";
 import loadTraits from "./traits";
 
@@ -49,19 +50,16 @@ const loadCss = (editor: Editor) => {
   `;
 };
 
-interface PluginConfig {
-  blocks?: ComponentsConfig["blocks"];
-  labels?: ComponentsConfig["labels"];
-  blockCategories?: ComponentsConfig["blockCategories"];
-}
-
 /**
  * Setup the plugin details
  *
  * @param editor
  * @param opts
  */
-export default function bootstrapPlugin(editor: Editor, opts: PluginConfig) {
+export default function bootstrapPlugin(
+  editor: Editor,
+  opts: PartialPluginConfig = {}
+) {
   const opts_blocks = opts.blocks || {};
   const opts_labels = opts.labels || {};
   const opts_categories = opts.blockCategories || {};
@@ -207,7 +205,7 @@ export default function bootstrapPlugin(editor: Editor, opts: PluginConfig) {
       classTab: "nav-item",
     },
     ...opts,
-  };
+  } as PluginConfig;
 
   // Add components
   loadCommands(editor, options);

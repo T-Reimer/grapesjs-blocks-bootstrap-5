@@ -33,122 +33,42 @@ import Text, { TextBlock } from "./components/Text";
 import Textarea, { TextareaBlock } from "./components/Textarea";
 import Embed from "./components/video/Embed";
 import Video, { VideoBlock } from "./components/video/Video";
+import { PluginConfig } from "./config";
 
-export interface ComponentsConfig {
-  blocks: {
-    image: boolean;
-    video: boolean;
-    default: boolean;
-    text: boolean;
-    link: boolean;
-    container: boolean;
-    row: boolean;
-    column: boolean;
-    column_break: boolean;
-    media_object: boolean;
-    alert: boolean;
-    tabs: boolean;
-    badge: boolean;
-    card: boolean;
-    collapse: boolean;
-    dropdown: boolean;
-    header: boolean;
-    paragraph: boolean;
-    form: boolean;
-    input: boolean;
-    form_group_input: boolean;
-    textarea: boolean;
-    select: boolean;
-    checkbox: boolean;
-    radio: boolean;
-    label: boolean;
-    button: boolean;
-    button_group: boolean;
-    button_toolbar: boolean;
-  };
-  blockCategories: {
-    media: boolean;
-    basic: boolean;
-    layout: boolean;
-    components: boolean;
-    typography: boolean;
-    forms: boolean;
-  };
-  labels: {
-    trait_id: string;
-    trait_for: string;
-    trait_name: string;
-    trait_placeholder: string;
-    trait_value: string;
-    trait_required: string;
-    trait_checked: string;
-    image: string;
-    video: string;
-    text: string;
-    link: string;
-    container: string;
-    row: string;
-    column: string;
-    column_break: string;
-    media_object: string;
-    alert: string;
-    tabs: string;
-    badge: string;
-    card: string;
-    collapse: string;
-    dropdown: string;
-    header: string;
-    paragraph: string;
-    form: string;
-    input: string;
-    file_input: string;
-    form_group_input: string;
-    textarea: string;
-    select: string;
-    checkbox: string;
-    radio: string;
-    label: string;
-    button: string;
-    button_group: string;
-    button_toolbar: string;
-  };
-}
-
-export default (editor: Editor, config: ComponentsConfig) => {
-  const c = config;
+export default (editor: Editor, config: PluginConfig) => {
   const domc = editor.DomComponents;
-  const blocks = c.blocks;
+  const blocks = config.blocks;
   const bm = editor.BlockManager;
-  const cats = c.blockCategories;
+  const cats = config.blockCategories;
 
   const traits = {
     id: {
       name: "id",
-      label: c.labels.trait_id,
+      label: config.labels.trait_id,
     },
     for: {
       name: "for",
-      label: c.labels.trait_for,
+      label: config.labels.trait_for,
     },
     name: {
       name: "name",
-      label: c.labels.trait_name,
+      label: config.labels.trait_name,
     },
     placeholder: {
       name: "placeholder",
-      label: c.labels.trait_placeholder,
+      label: config.labels.trait_placeholder,
     },
     value: {
       name: "value",
-      label: c.labels.trait_value,
+      label: config.labels.trait_value,
     },
     required: {
       type: "checkbox",
       name: "required",
-      label: c.labels.trait_required,
+      label: config.labels.trait_required,
     },
     checked: {
-      label: c.labels.trait_checked,
+      label: config.labels.trait_checked,
       type: "checkbox",
       name: "checked",
       changeProp: 1,
@@ -157,13 +77,13 @@ export default (editor: Editor, config: ComponentsConfig) => {
 
   if (cats.media) {
     if (blocks.image) {
-      ImageBlock(bm, c.labels.image);
+      ImageBlock(bm, config.labels.image);
       Image(domc);
     }
 
     if (blocks.video) {
       Embed(domc);
-      VideoBlock(bm, c.labels.video);
+      VideoBlock(bm, config.labels.video);
       Video(domc);
     }
   }
@@ -176,13 +96,13 @@ export default (editor: Editor, config: ComponentsConfig) => {
 
     // Rebuild the text component and add display utility setting
     if (blocks.text) {
-      TextBlock(bm, c.labels.text);
+      TextBlock(bm, config.labels.text);
       Text(domc);
     }
 
     // Rebuild the link component with settings for collapse-control
     if (blocks.link) {
-      LinkBlock(bm, c.labels.link);
+      LinkBlock(bm, config.labels.link);
       Link(editor);
     }
 
@@ -199,23 +119,23 @@ export default (editor: Editor, config: ComponentsConfig) => {
   // LAYOUT
   if (cats.layout) {
     if (blocks.container) {
-      ContainerBlock(bm, c.labels.container);
+      ContainerBlock(bm, config.labels.container);
       Container(domc);
     }
     if (blocks.row) {
-      RowBlock(bm, c.labels.row);
+      RowBlock(bm, config.labels.row);
       Row(domc);
     }
     if (blocks.column) {
-      ColumnBlock(bm, c.labels.column);
+      ColumnBlock(bm, config.labels.column);
       Column(domc, editor);
 
-      ColumnBreakBlock(bm, c.labels.column_break);
+      ColumnBreakBlock(bm, config.labels.column_break);
       ColumnBreak(domc);
     }
     // Media object
     if (blocks.media_object) {
-      MediaObjectBlock(bm, c.labels.media_object);
+      MediaObjectBlock(bm, config.labels.media_object);
       MediaObject(domc);
     }
   }
@@ -224,12 +144,12 @@ export default (editor: Editor, config: ComponentsConfig) => {
   if (cats.components) {
     // Alert
     if (blocks.alert) {
-      AlertBlock(bm, c.labels.alert);
+      AlertBlock(bm, config.labels.alert);
       Alert(domc);
     }
 
     if (blocks.tabs) {
-      TabsBlock(bm, c);
+      TabsBlock(editor, config);
       TabsNavigation(domc, config);
       Tab(domc, config);
       TabsPanes(domc, config);
@@ -238,25 +158,25 @@ export default (editor: Editor, config: ComponentsConfig) => {
 
     // Badge
     if (blocks.badge) {
-      BadgeBlock(bm, c.labels.badge);
+      BadgeBlock(bm, config.labels.badge);
       Badge(domc);
     }
 
     // Card
     if (blocks.card) {
-      CardBlock(bm, c);
+      CardBlock(bm, config);
       Card(domc, editor);
     }
 
     // Collapse
     if (blocks.collapse) {
-      CollapseBlock(bm, c.labels.collapse);
+      CollapseBlock(bm, config.labels.collapse);
       Collapse(editor);
     }
 
     // Dropdown
     if (blocks.dropdown) {
-      DropDownBlock(bm, c.labels.dropdown);
+      DropDownBlock(bm, config.labels.dropdown);
       Dropdown(editor);
     }
   }
@@ -264,71 +184,71 @@ export default (editor: Editor, config: ComponentsConfig) => {
   // TYPOGRAPHY
   if (cats.typography) {
     if (blocks.header) {
-      HeaderBlock(bm, c.labels.header);
+      HeaderBlock(bm, config.labels.header);
       Header(domc);
     }
     if (blocks.paragraph) {
-      ParagraphBlock(bm, c.labels.paragraph);
+      ParagraphBlock(bm, config.labels.paragraph);
       Paragraph(domc);
     }
   }
 
   if (cats.forms) {
     if (blocks.form) {
-      FormBlock(bm, c.labels.form);
+      FormBlock(bm, config.labels.form);
       Form(domc, traits, config);
     }
 
     if (blocks.input) {
-      InputBlock(bm, c.labels.input);
+      InputBlock(bm, config.labels.input);
       Input(domc, traits, config);
 
-      FileInputBlock(bm, c.labels.file_input);
+      FileInputBlock(bm, config.labels.file_input);
       FileInput(domc, traits, config);
     }
 
     if (blocks.form_group_input) {
-      InputGroupBlock(bm, c.labels.form_group_input);
+      InputGroupBlock(bm, config.labels.form_group_input);
       InputGroup(domc, traits, config);
     }
 
     if (blocks.textarea) {
-      TextareaBlock(bm, c.labels.textarea);
+      TextareaBlock(bm, config.labels.textarea);
       Textarea(domc, traits, config);
     }
 
     if (blocks.select) {
-      SelectBlock(bm, c.labels.select);
+      SelectBlock(bm, config.labels.select);
       Select(editor, domc, traits, config);
     }
 
     if (blocks.checkbox) {
-      CheckboxBlock(bm, c.labels.checkbox);
+      CheckboxBlock(bm, config.labels.checkbox);
       Checkbox(domc, traits, config);
     }
 
     if (blocks.radio) {
-      RadioBlock(bm, c.labels.radio);
+      RadioBlock(bm, config.labels.radio);
       Radio(domc, traits, config);
     }
 
     if (blocks.label) {
-      LabelBlock(bm, c.labels.label);
+      LabelBlock(bm, config.labels.label);
       Label(domc, traits, config);
     }
 
     if (blocks.button) {
-      ButtonBlock(bm, c.labels.button);
+      ButtonBlock(bm, config.labels.button);
       Button(domc);
     }
 
     if (blocks.button_group) {
-      ButtonGroupBlock(bm, c.labels.button_group);
+      ButtonGroupBlock(bm, config.labels.button_group);
       ButtonGroup(domc);
     }
 
     if (blocks.button_toolbar) {
-      ButtonToolbarBlock(bm, c.labels.button_toolbar);
+      ButtonToolbarBlock(bm, config.labels.button_toolbar);
       ButtonToolbar(domc);
     }
   }

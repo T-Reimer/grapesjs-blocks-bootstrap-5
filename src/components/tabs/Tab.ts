@@ -1,30 +1,33 @@
-import constants from './constants';
-import { elHasClass } from '../../utils';
+import constants from "./constants";
+import { elHasClass } from "../../utils";
+import { ComponentManager } from "grapesjs";
+import { PluginConfig } from "../../config";
 
-export default (dc, config = {}) => {
-  const defaultType = dc.getType('default');
+export default (dc: ComponentManager, config: PluginConfig) => {
+  const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
-  const defaultView = defaultType.view;
+  // const defaultView = defaultType.view;
+
   const { tabName, navigationSelector } = constants;
   const classId = config.classTab;
   const type = tabName;
 
   dc.addType(type, {
-
-
     model: {
       defaults: {
         ...defaultModel.prototype.defaults,
-        name: 'Tab',
-        tagName: 'li',
+        name: "Tab",
+        tagName: "li",
         copyable: true,
         draggable: navigationSelector,
-
       },
 
       init() {
-        this.get('classes').pluck('name').indexOf(classId) < 0 && this.addClass(classId);
-      }
+        const classes = this.get("classes");
+        if (!classes || classes.pluck("name").indexOf(classId) < 0) {
+          this.addClass(classId);
+        }
+      },
     },
     isComponent(el) {
       if (elHasClass(el, classId)) return { type };
@@ -43,4 +46,4 @@ export default (dc, config = {}) => {
       },
     },
   });
-}
+};

@@ -1,10 +1,14 @@
-import constants from "./constants";
-import { elHasClass } from "../../utils";
-import ellipsisIcon from "../../icons/ellipsis-h-solid.svg";
+import { ComponentManager, Editor } from "grapesjs";
+import { PluginConfig } from "../../config";
 import circleIcon from "../../icons/circle-solid.svg";
+import ellipsisIcon from "../../icons/ellipsis-h-solid.svg";
 import windowIcon from "../../icons/window-maximize-solid.svg";
+import { elHasClass } from "../../utils";
+import constants from "./constants";
 
-export const TabsBlock = (bm, c) => {
+export const TabsBlock = (editor: Editor, c: PluginConfig) => {
+  const bm = editor.BlockManager;
+
   bm.add("tabs", {
     label: `
             ${ellipsisIcon}
@@ -52,10 +56,10 @@ export const TabsBlock = (bm, c) => {
   });
 };
 
-export default (dc, config = {}) => {
+export default (dc: ComponentManager, config: PluginConfig) => {
   const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
-  const defaultView = defaultType.view;
+  // const defaultView = defaultType.view;
   const { navigationName, tabSelector } = constants;
   const classId = config.classNavigation;
   const type = navigationName;
@@ -91,8 +95,10 @@ export default (dc, config = {}) => {
       },
 
       init() {
-        this.get("classes").pluck("name").indexOf(classId) < 0 &&
+        const classes = this.get("classes");
+        if (!classes || classes.pluck("name").indexOf(classId) < 0) {
           this.addClass(classId);
+        }
       },
     },
     isComponent(el) {
@@ -109,18 +115,18 @@ export default (dc, config = {}) => {
         // Add a basic template if it's not yet initialized
         if (!comps.length) {
           comps.add(`
-                        <ul class="nav nav-tabs" role="tablist">
-                          <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tab 1</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tab 2</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Tab 3</a>
-                          </li>
-                        </ul>
-                    `);
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tab 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tab 2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Tab 3</a>
+              </li>
+            </ul>
+          `);
         }
       },
     },
