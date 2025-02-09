@@ -199,3 +199,15 @@ Start the dev server
 ```sh
 $ npm run dev
 ```
+
+---
+
+### Publishing
+
+Update the version numbers in package.json and package-lock.json. The create a github release. Github actions will publish to npm.
+
+```bash
+npm run v:patch
+# or
+npm run v:minor
+```

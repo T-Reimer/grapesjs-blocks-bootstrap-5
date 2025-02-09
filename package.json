@@ -1,6 +1,6 @@
 {
   "name": "@treimer/grapesjs-blocks-bootstrap-5",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "description": "GrapesJS Bootstrap v5 Blocks plugin.",
   "type": "module",
   "main": "dist/index.js",
