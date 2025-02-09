@@ -4,6 +4,7 @@
   "description": "GrapesJS Bootstrap v5 Blocks plugin.",
   "type": "module",
   "main": "dist/index.js",
+  "private": false,
   "scripts": {
     "dev": "vite",
     "build": "tsc ",
@@ -11,6 +12,11 @@
     "v:patch": "npm version --no-git-tag-version patch",
     "v:minor": "npm version --no-git-tag-version minor"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "author": "toiyabe",
   "license": "MIT",
   "peerDependencies": {
