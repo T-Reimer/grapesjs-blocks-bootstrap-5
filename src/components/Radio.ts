@@ -1,6 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import radioIcon from "../icons/dot-circle-regular.svg";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const RadioBlock = (bm, label) => {
+export const RadioBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("radio", {
     label: `
             ${radioIcon}
@@ -18,8 +21,15 @@ export const RadioBlock = (bm, label) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const checkType = dc.getType("checkbox");
+  if (!checkType) {
+    return;
+  }
 
   // RADIO
   dc.addType("radio", {
@@ -31,7 +41,8 @@ export default (dc, traits, config = {}) => {
         attributes: { type: "radio" },
       },
     },
-    isComponent(el) {
+    isComponent(element) {
+      const el = element as HTMLInputElement;
       if (el.tagName === "INPUT" && el.type === "radio") {
         return { type: "radio" };
       }

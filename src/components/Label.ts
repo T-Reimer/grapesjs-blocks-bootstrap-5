@@ -1,6 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import labelIcon from "../icons/label.svg";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const LabelBlock = (bm, label) => {
+export const LabelBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("label", {
     label: `
       ${labelIcon}
@@ -10,8 +13,15 @@ export const LabelBlock = (bm, label) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const textType = dc.getType("text");
+  if (!textType) {
+    return;
+  }
   const textModel = textType.model;
   const textView = textType.view;
 

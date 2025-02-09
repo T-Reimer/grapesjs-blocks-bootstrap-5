@@ -1,6 +1,8 @@
+import { ComponentManager, Editor } from "grapesjs";
 import buttonIcon from "../icons/button.svg";
 
-export const ButtonToolbarBlock = (bm, label) => {
+export const ButtonToolbarBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("button_toolbar", {
     label: `
             ${buttonIcon}
@@ -13,7 +15,7 @@ export const ButtonToolbarBlock = (bm, label) => {
   });
 };
 
-export default (dc) => {
+export default (dc: ComponentManager) => {
   const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;

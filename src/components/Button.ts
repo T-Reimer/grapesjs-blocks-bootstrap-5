@@ -1,9 +1,11 @@
 import contexts from "../bootstrap-contexts";
-import sizes from "../bootstrap-btn-sizes";
+import sizes, { BootstrapBtnSizes } from "../bootstrap-btn-sizes";
 import buttonIcon from "../icons/button.svg";
 import { capitalize } from "../utils";
+import { ComponentManager, Editor, Selector } from "grapesjs";
 
-export const ButtonBlock = (bm, label) => {
+export const ButtonBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("button", {
     label: `${buttonIcon}<div>${label}</div>`,
     category: "Forms (Bootstrap)",
@@ -11,10 +13,13 @@ export const ButtonBlock = (bm, label) => {
   });
 };
 
-export default (dc) => {
+export default (dc: ComponentManager) => {
   const defaultType = dc.getType("default");
+  if (!defaultType) {
+    return;
+  }
   const defaultModel = defaultType.model;
-  const defaultView = defaultType.view;
+  // const defaultView = defaultType.view;
 
   dc.addType("button", {
     model: {
@@ -62,7 +67,10 @@ export default (dc) => {
             options: [
               { value: "", name: "Default" },
               ...Object.keys(sizes).map((k) => {
-                return { value: `btn-${k}`, name: sizes[k] };
+                return {
+                  value: `btn-${k}`,
+                  name: sizes[k as BootstrapBtnSizes],
+                };
               }),
             ],
             label: "Size",
@@ -77,11 +85,11 @@ export default (dc) => {
           },
         ].concat(defaultModel.prototype.defaults.traits),
       },
-      afterChange(e) {
-        if (this.attributes.type === "button") {
+      afterChange() {
+        if (this.attributes.type === "button" && this.attributes.classes) {
           if (
-            this.attributes.classes.filter((klass) => {
-              return klass.id === "btn";
+            this.attributes.classes.filter((cls: Selector) => {
+              return cls.id === "btn";
             }).length === 0
           ) {
             this.changeType("link");
@@ -96,6 +104,7 @@ export default (dc) => {
     },
     view: {
       events: {
+        // @ts-ignore
         click: "handleClick",
       },
 
@@ -104,10 +113,10 @@ export default (dc) => {
       },
 
       updateContent() {
-        this.el.innerHTML = this.model.get("content");
+        this.el.innerHTML = this.model.get("content") || "";
       },
 
-      handleClick(e) {
+      handleClick(e: any) {
         e.preventDefault();
       },
     },

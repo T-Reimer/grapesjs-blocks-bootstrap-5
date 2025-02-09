@@ -1,6 +1,8 @@
+import { ComponentManager, Editor } from "grapesjs";
 import headingIcon from "../icons/heading-solid.svg";
 
-export const HeaderBlock = (bm, label) => {
+export const HeaderBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("header", {
     label: `
             ${headingIcon}
@@ -14,8 +16,11 @@ export const HeaderBlock = (bm, label) => {
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const textType = domc.getType("text");
+  if (!textType) {
+    return;
+  }
   const textModel = textType.model;
   const textView = textType.view;
 

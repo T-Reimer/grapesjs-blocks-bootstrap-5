@@ -1,6 +1,8 @@
+import { ComponentManager, Editor } from "grapesjs";
 import imageIcon from "../icons/image-solid.svg";
 
-export const ImageBlock = (bm, label) => {
+export const ImageBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("bs-image", {
     label: `
             ${imageIcon}
@@ -13,9 +15,12 @@ export const ImageBlock = (bm, label) => {
   });
 };
 
-export default (domComponent) => {
+export default (domComponent: ComponentManager) => {
   const img_src_default = "https://dummyimage.com/800x500/999/222";
   const imageType = domComponent.getType("image");
+  if (!imageType) {
+    return;
+  }
   const model = imageType.model;
   const view = imageType.view;
   const type = "bs-image";

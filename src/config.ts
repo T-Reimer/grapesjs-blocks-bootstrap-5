@@ -142,6 +142,27 @@ export interface PluginConfig {
   classTabPanes: string;
   classTabPane: string;
   classTab: string;
+
+  formPredefinedActions: { value: string; name: string }[];
 }
 
 export type PartialPluginConfig = DeepPartial<PluginConfig>;
+
+// setup the traits types
+
+export interface FormFieldTraitValue {
+  name: string;
+  label: string;
+  type?: string;
+  changeProp?: number;
+}
+
+export type FormFieldTrait = {
+  id: Omit<FormFieldTraitValue, "type" | "changeProp">;
+  for: Omit<FormFieldTraitValue, "type" | "changeProp">;
+  name: Omit<FormFieldTraitValue, "type" | "changeProp">;
+  placeholder: Omit<FormFieldTraitValue, "type" | "changeProp">;
+  value: Omit<FormFieldTraitValue, "type" | "changeProp">;
+  required: Required<Omit<FormFieldTraitValue, "changeProp">>;
+  checked: Required<FormFieldTraitValue>;
+};

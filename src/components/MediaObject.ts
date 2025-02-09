@@ -1,7 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import columnsIcon from "../icons/columns-solid.svg";
 
-export const MediaObjectBlock = (bm, label) => {
-  bm.add("media_object").set({
+export const MediaObjectBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
+  bm.add("media_object", {
     label: `
             ${columnsIcon}
             <div>${label}</div>
@@ -17,7 +19,7 @@ export const MediaObjectBlock = (bm, label) => {
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const defaultType = domc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;

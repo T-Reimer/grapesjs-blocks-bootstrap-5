@@ -1,6 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import inputIcon from "../icons/input.svg";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const InputBlock = (bm, label) => {
+export const InputBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("input", {
     label: `
       ${inputIcon}
@@ -10,7 +13,11 @@ export const InputBlock = (bm, label) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;

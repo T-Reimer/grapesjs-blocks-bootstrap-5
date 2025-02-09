@@ -1,7 +1,9 @@
-import sizes from "../bootstrap-btn-sizes";
+import { ComponentManager, Editor } from "grapesjs";
+import sizes, { BootstrapBtnSizes } from "../bootstrap-btn-sizes";
 import buttonIcon from "../icons/button.svg";
 
-export const ButtonGroupBlock = (bm, label) => {
+export const ButtonGroupBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("button_group", {
     label: `
             ${buttonIcon}
@@ -14,7 +16,7 @@ export const ButtonGroupBlock = (bm, label) => {
   });
 };
 
-export default (dc) => {
+export default (dc: ComponentManager) => {
   const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;
@@ -35,7 +37,10 @@ export default (dc) => {
             options: [
               { value: "", name: "Default" },
               ...Object.keys(sizes).map(function (k) {
-                return { value: "btn-group-" + k, name: sizes[k] };
+                return {
+                  value: "btn-group-" + k,
+                  name: sizes[k as BootstrapBtnSizes],
+                };
               }),
             ],
             label: "Size",

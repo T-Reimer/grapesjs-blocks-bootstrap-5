@@ -1,7 +1,10 @@
 import { elHasClass } from "../utils";
 import fileInputIcon from "../icons/file-input.svg";
+import { ComponentManager, Editor } from "grapesjs";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const FileInputBlock = (bm, label) => {
+export const FileInputBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("file-input", {
     label: `
             ${fileInputIcon}
@@ -12,7 +15,11 @@ export const FileInputBlock = (bm, label) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;

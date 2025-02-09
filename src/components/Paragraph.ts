@@ -1,6 +1,8 @@
+import { ComponentManager, Editor } from "grapesjs";
 import paragraphIcon from "../icons/paragraph-solid.svg";
 
-export const ParagraphBlock = (bm, label) => {
+export const ParagraphBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("paragraph", {
     label: `
             ${paragraphIcon}
@@ -15,8 +17,11 @@ export const ParagraphBlock = (bm, label) => {
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const textType = domc.getType("text");
+  if (!textType) {
+    return;
+  }
   const textModel = textType.model;
   const textView = textType.view;
 

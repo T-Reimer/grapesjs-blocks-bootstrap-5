@@ -1,6 +1,12 @@
+import { ComponentManager, Editor } from "grapesjs";
 import formIcon from "../icons/form.svg";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const FormBlock = (bm, label) => {
+const formMsgSuccess = "Form sent successfully!";
+const formMsgError = "There was an error sending the form.";
+
+export const FormBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("form", {
     label: `
       ${formIcon}
@@ -36,11 +42,24 @@ export const FormBlock = (bm, label) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
+type actionTraitType =
+  | {
+      type: string;
+      label: string;
+      name: string;
+      options: PluginConfig["formPredefinedActions"];
+    }
+  | { label: string; name: string };
+
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
-  const defaultView = defaultType.view;
-  let actionTrait;
+  // const defaultView = defaultType.view;
+  let actionTrait: actionTraitType;
 
   // If the formPredefinedActions is set in the config you can add a dropdown menu to the actions trait
   if (config.formPredefinedActions && config.formPredefinedActions.length) {
@@ -48,11 +67,11 @@ export default (dc, traits, config = {}) => {
       type: "select",
       label: config.labels.trait_action,
       name: "action",
-      options: [],
+      options: config.formPredefinedActions.map((action) => ({
+        value: action.value,
+        name: action.name,
+      })),
     };
-    config.formPredefinedActions.forEach((action) => {
-      actionTrait.options.push({ value: action.value, name: action.name });
-    });
   } else {
     actionTrait = {
       label: config.labels.trait_action,
@@ -111,7 +130,7 @@ export default (dc, traits, config = {}) => {
         }
       },
 
-      showState(state) {
+      showState(state: "normal" | "success" | "error") {
         var st = state || "normal";
         var failVis, successVis;
         if (st === "success") {
@@ -134,11 +153,15 @@ export default (dc, traits, config = {}) => {
         failModel.setStyle(failStyle);
       },
 
-      getStateModel(state) {
+      getStateModel(state: "normal" | "success" | "error") {
         var st = state || "success";
-        var stateName = "form-state-" + st;
+        // var stateName = "form-state-" + st;
         var stateModel;
         var comps = this.get("components");
+        if (!comps) {
+          return;
+        }
+
         for (var i = 0; i < comps.length; i++) {
           var model = comps.models[i];
           if (model.get("form-state-type") === st) {
@@ -146,6 +169,7 @@ export default (dc, traits, config = {}) => {
             break;
           }
         }
+
         if (!stateModel) {
           var contentStr = formMsgSuccess;
           if (st === "error") {
@@ -172,7 +196,8 @@ export default (dc, traits, config = {}) => {
 
     view: {
       events: {
-        submit(e) {
+        // @ts-ignore
+        submit(e: any) {
           e.preventDefault();
         },
       },

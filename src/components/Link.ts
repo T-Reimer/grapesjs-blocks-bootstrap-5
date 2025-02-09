@@ -3,9 +3,11 @@ known issues:
 - BS dropdown JS isn't attached if you remove the existing toggle and add a new one
 */
 
+import { Editor, Selector } from "grapesjs";
 import linkIcon from "../icons/link-solid.svg";
 
-export const LinkBlock = (bm, label) => {
+export const LinkBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("link", {
     label: `
             ${linkIcon}
@@ -19,12 +21,18 @@ export const LinkBlock = (bm, label) => {
   });
 };
 
-export default (editor) => {
+export default (editor: Editor) => {
   const comps = editor.DomComponents;
   const textType = comps.getType("text");
+  if (!textType) {
+    return;
+  }
   const textModel = textType.model;
 
   const linkType = comps.getType("link");
+  if (!linkType) {
+    return;
+  }
   const linkView = linkType.view;
 
   comps.addType("link", {
@@ -70,7 +78,11 @@ export default (editor) => {
         this.listenTo(this, "change:data-bs-toggle", this.setupToggle);
         this.listenTo(this, "change:attributes", this.setupToggle); // for when href changes
       },
-      setupToggle(a, b, options = {}) {
+      setupToggle(
+        a: any,
+        b: any,
+        options: { ignore?: boolean; force?: boolean } = {}
+      ) {
         // TODO this should be in the dropdown comp and not the link comp
         if (options.ignore === true && options.force !== true) {
           return;
@@ -100,7 +112,7 @@ export default (editor) => {
               console.log("el has classes");
               const el_classes_list = el_classes.split(" ");
               const includes = ["collapse", "dropdown-menu"];
-              const intersection = el_classes_list.filter((x) =>
+              const intersection = el_classes_list.filter((x: string) =>
                 includes.includes(x)
               );
 
@@ -119,14 +131,15 @@ export default (editor) => {
             }
           }
         }
-        this.set("attributes", attrs, { ignore: true });
+        this.set("attributes", attrs, { ignore: true } as any);
       },
-      classesChanged(e) {
+      classesChanged() {
         console.log("classes changed");
         if (this.attributes.type === "link") {
           if (
-            this.attributes.classes.filter(function (klass) {
-              return klass.id === "btn";
+            this.attributes.classes &&
+            this.attributes.classes.filter(function (cls: Selector) {
+              return cls.id === "btn";
             }).length > 0
           ) {
             this.changeType("button");

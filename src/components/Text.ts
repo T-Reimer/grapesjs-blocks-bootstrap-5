@@ -1,6 +1,8 @@
+import { ComponentManager, Editor } from "grapesjs";
 import fontIcon from "../icons/font-solid.svg";
 
-export const TextBlock = (bm, label) => {
+export const TextBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("text", {
     label: `
             ${fontIcon}
@@ -14,10 +16,13 @@ export const TextBlock = (bm, label) => {
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const defaultType = domc.getType("default");
-  const defaultModel = defaultType.model;
   const textType = domc.getType("text");
+  if (!defaultType || !textType) {
+    return;
+  }
+  const defaultModel = defaultType.model;
   const textView = textType.view;
 
   domc.addType("text", {

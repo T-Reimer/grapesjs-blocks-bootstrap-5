@@ -1,6 +1,9 @@
+import { Component, ComponentManager, Editor } from "grapesjs";
+import { PluginConfig } from "../config";
 import cardIcon from "../icons/credit-card-solid.svg";
 
-export const CardBlock = (bm, c) => {
+export const CardBlock = (editor: Editor, c: PluginConfig) => {
+  const bm = editor.BlockManager;
   bm.add("card", {
     label: `
             ${cardIcon}
@@ -23,12 +26,15 @@ export const CardBlock = (bm, c) => {
   });
 };
 
-export default (domc, editor) => {
+export default (domc: ComponentManager, editor: Editor) => {
   const comps = editor.DomComponents;
   const defaultType = comps.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;
   const imageType = domc.getType("image");
+  if (!imageType) {
+    return;
+  }
   const imageModel = imageType.model;
   const imageView = imageType.view;
 
@@ -115,11 +121,11 @@ export default (domc, editor) => {
       cardImageBottom() {
         this.createCardComponent("card-img-bottom");
       },
-      createCardComponent(prop) {
+      createCardComponent(prop: string) {
         const state = this.get(prop);
         const type = prop.replace(/-/g, "_").replace(/img/g, "image");
         let children = this.components();
-        let existing = children.filter(function (comp) {
+        let existing = children.filter(function (comp: Component) {
           return comp.attributes.type === type;
         })[0]; // should only be one of each.
 

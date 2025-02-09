@@ -1,6 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import textareaIcon from "../icons/textarea.svg";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const TextareaBlock = (bm, label) => {
+export const TextareaBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("textarea", {
     label: `
       ${textareaIcon}
@@ -10,10 +13,17 @@ export const TextareaBlock = (bm, label) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const defaultType = dc.getType("default");
-  const defaultView = defaultType.view;
   const inputType = dc.getType("input");
+  if (!defaultType || !inputType) {
+    return;
+  }
+  const defaultView = defaultType.view;
   const inputModel = inputType.model;
 
   // TEXTAREA

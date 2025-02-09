@@ -1,8 +1,10 @@
+import { ComponentManager, Editor } from "grapesjs";
 import contexts from "../bootstrap-contexts";
 import exclamationIcon from "../icons/exclamation-triangle-solid.svg";
 import { capitalize } from "../utils";
 
-export const AlertBlock = (bm, label) => {
+export const AlertBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("alert", {
     label: `
             ${exclamationIcon}
@@ -16,8 +18,11 @@ export const AlertBlock = (bm, label) => {
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const textType = domc.getType("text");
+  if (!textType) {
+    return;
+  }
   const textModel = textType.model;
   const textView = textType.view;
 

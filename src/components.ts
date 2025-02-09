@@ -33,15 +33,14 @@ import Text, { TextBlock } from "./components/Text";
 import Textarea, { TextareaBlock } from "./components/Textarea";
 import Embed from "./components/video/Embed";
 import Video, { VideoBlock } from "./components/video/Video";
-import { PluginConfig } from "./config";
+import { PluginConfig, FormFieldTraitValue, FormFieldTrait } from "./config";
 
 export default (editor: Editor, config: PluginConfig) => {
   const domc = editor.DomComponents;
   const blocks = config.blocks;
-  const bm = editor.BlockManager;
   const cats = config.blockCategories;
 
-  const traits = {
+  const traits: FormFieldTrait = {
     id: {
       name: "id",
       label: config.labels.trait_id,
@@ -77,7 +76,7 @@ export default (editor: Editor, config: PluginConfig) => {
 
   if (cats.media) {
     if (blocks.image) {
-      ImageBlock(bm, config.labels.image);
+      ImageBlock(editor, config.labels.image);
       Image(domc);
     }
 
@@ -96,13 +95,13 @@ export default (editor: Editor, config: PluginConfig) => {
 
     // Rebuild the text component and add display utility setting
     if (blocks.text) {
-      TextBlock(bm, config.labels.text);
+      TextBlock(editor, config.labels.text);
       Text(domc);
     }
 
     // Rebuild the link component with settings for collapse-control
     if (blocks.link) {
-      LinkBlock(bm, config.labels.link);
+      LinkBlock(editor, config.labels.link);
       Link(editor);
     }
 
@@ -119,23 +118,23 @@ export default (editor: Editor, config: PluginConfig) => {
   // LAYOUT
   if (cats.layout) {
     if (blocks.container) {
-      ContainerBlock(bm, config.labels.container);
+      ContainerBlock(editor, config.labels.container);
       Container(domc);
     }
     if (blocks.row) {
-      RowBlock(bm, config.labels.row);
+      RowBlock(editor, config.labels.row);
       Row(domc);
     }
     if (blocks.column) {
-      ColumnBlock(bm, config.labels.column);
+      ColumnBlock(editor, config.labels.column);
       Column(domc, editor);
 
-      ColumnBreakBlock(bm, config.labels.column_break);
+      ColumnBreakBlock(editor, config.labels.column_break);
       ColumnBreak(domc);
     }
     // Media object
     if (blocks.media_object) {
-      MediaObjectBlock(bm, config.labels.media_object);
+      MediaObjectBlock(editor, config.labels.media_object);
       MediaObject(domc);
     }
   }
@@ -144,7 +143,7 @@ export default (editor: Editor, config: PluginConfig) => {
   if (cats.components) {
     // Alert
     if (blocks.alert) {
-      AlertBlock(bm, config.labels.alert);
+      AlertBlock(editor, config.labels.alert);
       Alert(domc);
     }
 
@@ -158,25 +157,25 @@ export default (editor: Editor, config: PluginConfig) => {
 
     // Badge
     if (blocks.badge) {
-      BadgeBlock(bm, config.labels.badge);
+      BadgeBlock(editor, config.labels.badge);
       Badge(domc);
     }
 
     // Card
     if (blocks.card) {
-      CardBlock(bm, config);
+      CardBlock(editor, config);
       Card(domc, editor);
     }
 
     // Collapse
     if (blocks.collapse) {
-      CollapseBlock(bm, config.labels.collapse);
+      CollapseBlock(editor, config.labels.collapse);
       Collapse(editor);
     }
 
     // Dropdown
     if (blocks.dropdown) {
-      DropDownBlock(bm, config.labels.dropdown);
+      DropDownBlock(editor, config.labels.dropdown);
       Dropdown(editor);
     }
   }
@@ -184,71 +183,71 @@ export default (editor: Editor, config: PluginConfig) => {
   // TYPOGRAPHY
   if (cats.typography) {
     if (blocks.header) {
-      HeaderBlock(bm, config.labels.header);
+      HeaderBlock(editor, config.labels.header);
       Header(domc);
     }
     if (blocks.paragraph) {
-      ParagraphBlock(bm, config.labels.paragraph);
+      ParagraphBlock(editor, config.labels.paragraph);
       Paragraph(domc);
     }
   }
 
   if (cats.forms) {
     if (blocks.form) {
-      FormBlock(bm, config.labels.form);
+      FormBlock(editor, config.labels.form);
       Form(domc, traits, config);
     }
 
     if (blocks.input) {
-      InputBlock(bm, config.labels.input);
+      InputBlock(editor, config.labels.input);
       Input(domc, traits, config);
 
-      FileInputBlock(bm, config.labels.file_input);
+      FileInputBlock(editor, config.labels.file_input);
       FileInput(domc, traits, config);
     }
 
     if (blocks.form_group_input) {
-      InputGroupBlock(bm, config.labels.form_group_input);
+      InputGroupBlock(editor, config.labels.form_group_input);
       InputGroup(domc, traits, config);
     }
 
     if (blocks.textarea) {
-      TextareaBlock(bm, config.labels.textarea);
+      TextareaBlock(editor, config.labels.textarea);
       Textarea(domc, traits, config);
     }
 
     if (blocks.select) {
-      SelectBlock(bm, config.labels.select);
+      SelectBlock(editor, config.labels.select);
       Select(editor, domc, traits, config);
     }
 
     if (blocks.checkbox) {
-      CheckboxBlock(bm, config.labels.checkbox);
+      CheckboxBlock(editor, config.labels.checkbox);
       Checkbox(domc, traits, config);
     }
 
     if (blocks.radio) {
-      RadioBlock(bm, config.labels.radio);
+      RadioBlock(editor, config.labels.radio);
       Radio(domc, traits, config);
     }
 
     if (blocks.label) {
-      LabelBlock(bm, config.labels.label);
+      LabelBlock(editor, config.labels.label);
       Label(domc, traits, config);
     }
 
     if (blocks.button) {
-      ButtonBlock(bm, config.labels.button);
+      ButtonBlock(editor, config.labels.button);
       Button(domc);
     }
 
     if (blocks.button_group) {
-      ButtonGroupBlock(bm, config.labels.button_group);
+      ButtonGroupBlock(editor, config.labels.button_group);
       ButtonGroup(domc);
     }
 
     if (blocks.button_toolbar) {
-      ButtonToolbarBlock(bm, config.labels.button_toolbar);
+      ButtonToolbarBlock(editor, config.labels.button_toolbar);
       ButtonToolbar(domc);
     }
   }

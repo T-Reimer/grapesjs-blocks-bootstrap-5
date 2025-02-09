@@ -1,7 +1,10 @@
+import { ComponentManager, Editor } from "grapesjs";
 import formGroupIcon from "../icons/form-group.svg";
 import inputGroupIcon from "../icons/input-group.svg";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const InputGroupBlock = (bm, label, c) => {
+export const InputGroupBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("form_group_input", {
     label: `
       ${formGroupIcon}
@@ -34,7 +37,11 @@ export const InputGroupBlock = (bm, label, c) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const defaultType = dc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;

@@ -1,6 +1,8 @@
+import { Editor } from "grapesjs";
 import compressIcon from "../icons/compress-solid.svg";
 
-export const CollapseBlock = (bm, label) => {
+export const CollapseBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("collapse", {
     label: `
             ${compressIcon}
@@ -13,11 +15,11 @@ export const CollapseBlock = (bm, label) => {
   });
 };
 
-export default (editor) => {
+export default (editor: Editor) => {
   const comps = editor.DomComponents;
   const defaultType = comps.getType("default");
   const defaultModel = defaultType.model;
-  const defaultView = defaultType.view;
+  // const defaultView = defaultType.view;s
 
   comps.addType("collapse", {
     model: {

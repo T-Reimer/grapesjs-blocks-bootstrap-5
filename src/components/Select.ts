@@ -1,6 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import selectIcon from "../icons/select-input.svg";
+import { FormFieldTrait, PluginConfig } from "../config";
 
-export const SelectBlock = (bm, label) => {
+export const SelectBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("select", {
     label: `
       ${selectIcon}
@@ -13,10 +16,19 @@ export const SelectBlock = (bm, label) => {
   });
 };
 
-export default (editor, dc, traits, config = {}) => {
+export default (
+  editor: Editor,
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
   const defaultType = dc.getType("default");
-  const defaultModel = defaultType.model;
   const inputType = dc.getType("input");
+  if (!defaultType || !inputType) {
+    return;
+  }
+
+  // const defaultModel = defaultType.model;
   const inputModel = inputType.model;
 
   const preventDefaultClick = () => {
@@ -25,7 +37,7 @@ export default (editor, dc, traits, config = {}) => {
         mousedown: "handleClick",
       },
 
-      handleClick(e) {
+      handleClick(e: any) {
         e.preventDefault();
       },
     });
@@ -72,7 +84,10 @@ export default (editor, dc, traits, config = {}) => {
         const option = optionStr.split(config.optionsStringSeparator);
         const opt = {
           tagName: "option",
-          attributes: {},
+          attributes: {
+            value: "",
+          },
+          content: "",
         };
         if (option[1]) {
           opt.content = option[1];
@@ -85,8 +100,10 @@ export default (editor, dc, traits, config = {}) => {
       }
 
       const comps = this.target.get("components");
-      comps.reset(optComps);
-      this.target.view.render();
+      if (comps) {
+        comps.reset(optComps);
+      }
+      this?.target?.view?.render();
     },
 
     getInputEl: function () {
@@ -94,18 +111,24 @@ export default (editor, dc, traits, config = {}) => {
         const target = this.target;
         let optionsStr = "";
         const options = target.get("components");
+        if (!options) {
+          return;
+        }
 
         for (let i = 0; i < options.length; i++) {
           const option = options.models[i];
           const optAttr = option.get("attributes");
+          if (!optAttr) {
+            continue;
+          }
           const optValue = optAttr.value || "";
           optionsStr += `${optValue}${
             config.optionsStringSeparator
           }${option.get("content")}\n`;
         }
 
-        this.$input = document.createElement("textarea");
-        this.$input.value = optionsStr;
+        this.$input = document.createElement("textarea") as any;
+        (this.$input as any).value = optionsStr;
       }
       return this.$input;
     },

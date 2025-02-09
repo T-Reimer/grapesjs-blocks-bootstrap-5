@@ -1,7 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import equalsIcon from "../icons/equals-solid.svg";
 
-export const ColumnBreakBlock = (bm, label) => {
-  bm.add("column_break").set({
+export const ColumnBreakBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
+  bm.add("column_break", {
     label: `
             ${equalsIcon}
             <div>${label}</div>
@@ -13,7 +15,7 @@ export const ColumnBreakBlock = (bm, label) => {
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const defaultType = domc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;

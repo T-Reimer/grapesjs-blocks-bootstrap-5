@@ -3,9 +3,11 @@ known issues:
 - BS dropdown JS isn't attached if you remove the existing toggle and add a new one
 */
 
+import { Component, Editor } from "grapesjs";
 import caretIcon from "../icons/caret-square-down-regular.svg";
 
-export const DropDownBlock = (bm, label) => {
+export const DropDownBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("dropdown", {
     label: `
             ${caretIcon}
@@ -34,16 +36,18 @@ export const DropDownBlock = (bm, label) => {
     });*/
 };
 
-export default (editor) => {
+export default (editor: Editor) => {
   const comps = editor.DomComponents;
   const defaultType = comps.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;
 
-  function hasEvent(comp) {
-    let eca = comp._events["change:attributes"];
+  function hasEvent(comp: Component) {
+    let eca = (comp as any)._events["change:attributes"];
     if (!eca) return false;
-    return eca.filter((e) => e.callback.name === "setupToggle").length !== 0;
+    return (
+      eca.filter((e: any) => e.callback.name === "setupToggle").length !== 0
+    );
   }
 
   comps.addType("dropdown", {
@@ -82,16 +86,23 @@ export default (editor) => {
         comps.bind("add", this.setupToggle.bind(this));
         comps.bind("remove", this.setupToggle.bind(this));
         const classes = this.get("classes");
+        if (!classes) {
+          return;
+        }
         classes.bind("add", this.setupToggle.bind(this));
         classes.bind("change", this.setupToggle.bind(this));
         classes.bind("remove", this.setupToggle.bind(this));
       },
 
-      setupToggle(a, b, options = {}) {
-        const toggle = this.components().filter((c) =>
+      setupToggle(
+        a: any,
+        b: any,
+        options: { ignore?: boolean; force?: boolean } = {}
+      ) {
+        const toggle = this.components().filter((c: Component) =>
           c.getAttributes().class.split(" ").includes("dropdown-toggle")
         )[0];
-        const menu = this.components().filter((c) =>
+        const menu = this.components().filter((c: Component) =>
           c.getAttributes().class.split(" ").includes("dropdown-menu")
         )[0];
 
@@ -119,7 +130,7 @@ export default (editor) => {
             toggle_attrs["aria-haspopup"] = true;
           }
 
-          toggle.set("attributes", toggle_attrs, { ignore: true });
+          toggle.set("attributes", toggle_attrs, { ignore: true } as any);
 
           // setup menu
           // toggle needs ID for aria-labelled on the menu, could alert here
@@ -128,13 +139,13 @@ export default (editor) => {
           } else {
             delete menu_attrs["aria-labelledby"];
           }
-          menu.set("attributes", menu_attrs, { ignore: true });
+          menu.set("attributes", menu_attrs, { ignore: true } as any);
         }
       },
 
       updated(property, value) {
         if (value.hasOwnProperty("initial_state")) {
-          const menu = this.components().filter((c) =>
+          const menu = this.components().filter((c: Component) =>
             c.getAttributes().class.split(" ").includes("dropdown-menu")
           )[0];
           const attrs = menu.getAttributes();

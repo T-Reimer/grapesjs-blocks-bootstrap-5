@@ -1,8 +1,10 @@
+import { ComponentManager, Editor } from "grapesjs";
 import contexts from "../bootstrap-contexts";
 import certificateIcon from "../icons/certificate-solid.svg";
 import { capitalize } from "../utils";
 
-export const BadgeBlock = (bm, label) => {
+export const BadgeBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("badge", {
     label: `
             ${certificateIcon}
@@ -16,8 +18,11 @@ export const BadgeBlock = (bm, label) => {
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const textType = domc.getType("text");
+  if (!textType) {
+    return;
+  }
   const textModel = textType.model;
   const textView = textType.view;
 

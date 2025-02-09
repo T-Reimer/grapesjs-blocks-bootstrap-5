@@ -1,7 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
 import columnsIcon from "../icons/columns-solid.svg";
 
-export const ColumnBlock = (bm, label) => {
-  bm.add("column").set({
+export const ColumnBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
+  bm.add("column", {
     label: `
             ${columnsIcon}
             <div>${label}</div>
@@ -14,7 +16,7 @@ export const ColumnBlock = (bm, label) => {
   });
 };
 
-export default (domc, editor) => {
+export default (domc: ComponentManager, editor: Editor) => {
   const defaultType = domc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;
@@ -27,14 +29,14 @@ export default (domc, editor) => {
         draggable: ".row",
         droppable: true,
         resizable: {
-          updateTarget: (el, rect, opt) => {
+          updateTarget: (el: HTMLElement, rect: { w: number; h: number }) => {
             const selected = editor.getSelected();
             if (!selected) {
               return;
             }
 
             //compute the current screen size (bootstrap semantic)
-            const docWidth = el.getRootNode().body.offsetWidth;
+            const docWidth = (el.getRootNode() as any).body.offsetWidth;
             let currentSize = "";
             if (docWidth >= 1200) {
               currentSize = "xl";
@@ -48,7 +50,7 @@ export default (domc, editor) => {
 
             //compute the threshold when add on remove 1 col span to the element
             const row = el.parentElement;
-            const oneColWidth = row.offsetWidth / 12;
+            const oneColWidth = row ? row.offsetWidth / 12 : 1;
             //the threshold is half one column width
             const threshold = oneColWidth * 0.5;
 
@@ -56,13 +58,13 @@ export default (domc, editor) => {
             const grow = rect.w > el.offsetWidth + threshold;
             const shrink = rect.w < el.offsetWidth - threshold;
             if (grow || shrink) {
-              let testRegexp = new RegExp("^col-" + currentSize + "-\\d{1,2}$");
-              if (!currentSize) {
-                testRegexp = new RegExp("^col-\\d{1,2}$");
-              }
+              // let testRegexp = new RegExp("^col-" + currentSize + "-\\d{1,2}$");
+              // if (!currentSize) {
+              //   testRegexp = new RegExp("^col-\\d{1,2}$");
+              // }
               let found = false;
-              let sizesSpans = {};
-              let oldSpan = 0;
+              let sizesSpans: { [key: string]: string } = {};
+              let oldSpan: string | number = 0;
               let oldClass = null;
               for (let cl of el.classList) {
                 if (cl.indexOf("col-") === 0) {
@@ -117,9 +119,10 @@ export default (domc, editor) => {
                 selected.removeClass(oldClass);
               }
               //notify the corresponding trait to update its value accordingly
-              selected
-                .getTrait((currentSize || "xs") + "_width")
-                .view.postUpdate();
+              const trait = selected.getTrait((currentSize || "xs") + "_width");
+              if (trait && trait.view) {
+                trait.view.postUpdate();
+              }
             }
           },
           tl: 0,

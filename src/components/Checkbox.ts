@@ -1,6 +1,9 @@
+import { ComponentManager, Editor } from "grapesjs";
+import { FormFieldTrait, PluginConfig } from "../config";
 import checkIcon from "../icons/check-square-solid.svg";
 
-export const CheckboxBlock = (bm, label) => {
+export const CheckboxBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
   bm.add("checkbox", {
     label: `
             ${checkIcon}
@@ -18,18 +21,25 @@ export const CheckboxBlock = (bm, label) => {
   });
 };
 
-export default (dc, traits, config = {}) => {
-  const defaultType = dc.getType("default");
-  const defaultModel = defaultType.model;
-  const defaultView = defaultType.view;
+export default (
+  dc: ComponentManager,
+  traits: FormFieldTrait,
+  config: PluginConfig
+) => {
+  // const defaultType = dc.getType("default");
+  // const defaultModel = defaultType.model;
+  // const defaultView = defaultType.view;
   const inputType = dc.getType("input");
+  if (!inputType) {
+    return;
+  }
   const inputModel = inputType.model;
 
   dc.addType("checkbox", {
     model: {
       defaults: {
         ...inputModel.prototype.defaults,
-        "custom-name": config.labels.checkbox_name,
+        // "custom-name": config.labels.checkbox_name,
         copyable: false,
         droppable: false,
         attributes: { type: "checkbox" },
@@ -49,6 +59,9 @@ export default (dc, traits, config = {}) => {
       handleChecked() {
         let checked = this.get("checked");
         let attrs = this.get("attributes");
+        if (!attrs) {
+          return;
+        }
         const view = this.view;
 
         if (checked) {
@@ -58,23 +71,25 @@ export default (dc, traits, config = {}) => {
         }
 
         if (view) {
-          view.el.checked = checked;
+          (view.el as HTMLInputElement).checked = checked;
         }
 
         this.set("attributes", { ...attrs });
       },
     },
-    isComponent(el) {
+    isComponent(element) {
+      const el = element as HTMLInputElement;
       if (el.tagName === "INPUT" && el.type === "checkbox") {
         return { type: "checkbox" };
       }
     },
     view: {
       events: {
+        // @ts-ignore
         click: "handleClick",
       },
 
-      handleClick(e) {
+      handleClick(e: any) {
         e.preventDefault();
       },
     },

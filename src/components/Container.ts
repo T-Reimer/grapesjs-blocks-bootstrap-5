@@ -1,46 +1,52 @@
+import { ComponentManager, Editor } from "grapesjs";
 import windowIcon from "../icons/window-maximize-solid.svg";
 
-export const RowBlock = (bm, label) => {
-  bm.add("row").set({
+export const ContainerBlock = (editor: Editor, label: string) => {
+  const bm = editor.BlockManager;
+  bm.add("container", {
     label: `
             ${windowIcon}
             <div>${label}</div>
         `,
     category: "Layout (Bootstrap)",
     content: {
-      type: "row",
-      classes: ["row"],
+      type: "container",
+      classes: ["container"],
     },
   });
 };
 
-export default (domc) => {
+export default (domc: ComponentManager) => {
   const defaultType = domc.getType("default");
   const defaultModel = defaultType.model;
   const defaultView = defaultType.view;
 
-  domc.addType("row", {
+  domc.addType("container", {
     model: {
       defaults: Object.assign({}, defaultModel.prototype.defaults, {
-        "custom-name": "Row",
+        "custom-name": "Container",
         tagName: "div",
-        draggable: ".container, .container-fluid",
         droppable: true,
         traits: [
           {
             type: "class_select",
             options: [
-              { value: "", name: "Yes" },
-              { value: "g-0", name: "No" },
+              { value: "container", name: "Fixed" },
+              { value: "container-fluid", name: "Fluid" },
             ],
-            label: "Gutters?",
+            label: "Width",
           },
         ].concat(defaultModel.prototype.defaults.traits),
       }),
     },
     isComponent(el) {
-      if (el && el.classList && el.classList.contains("row")) {
-        return { type: "row" };
+      if (
+        el &&
+        el.classList &&
+        (el.classList.contains("container") ||
+          el.classList.contains("container-fluid"))
+      ) {
+        return { type: "container" };
       }
     },
     view: defaultView,
