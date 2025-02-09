@@ -33,7 +33,7 @@ import Text, { TextBlock } from "./components/Text";
 import Textarea, { TextareaBlock } from "./components/Textarea";
 import Embed from "./components/video/Embed";
 import Video, { VideoBlock } from "./components/video/Video";
-import { PluginConfig, FormFieldTraitValue, FormFieldTrait } from "./config";
+import { FormFieldTrait, PluginConfig } from "./config";
 
 export default (editor: Editor, config: PluginConfig) => {
   const domc = editor.DomComponents;

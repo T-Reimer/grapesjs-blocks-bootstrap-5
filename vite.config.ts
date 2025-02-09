@@ -7,4 +7,7 @@ export default defineConfig({
       defaultImport: "raw",
     }),
   ],
+  build: {
+    outDir: "example-dist",
+  },
 });

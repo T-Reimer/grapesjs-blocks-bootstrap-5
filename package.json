@@ -1,11 +1,12 @@
 {
-  "name": "@toiyabe/grapesjs-blocks-bootstrap-5",
-  "version": "9.0.15",
+  "name": "@treimer/grapesjs-blocks-bootstrap-5",
+  "version": "10.0.0",
   "description": "GrapesJS Bootstrap v5 Blocks plugin.",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc ",
     "preview": "vite preview",
     "v:patch": "npm version --no-git-tag-version patch",
     "v:minor": "npm version --no-git-tag-version minor"
