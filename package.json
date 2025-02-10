@@ -1,13 +1,16 @@
 {
   "name": "@treimer/grapesjs-blocks-bootstrap-5",
-  "version": "10.0.1",
+  "version": "10.0.2",
   "description": "GrapesJS Bootstrap v5 Blocks plugin.",
   "type": "module",
   "main": "dist/index.js",
   "private": false,
+  "repository": "https://github.com/T-Reimer/grapesjs-blocks-bootstrap-5",
   "scripts": {
     "dev": "vite",
+    "prebuild": "rm -r dist/*",
     "build": "tsc ",
+    "postbuild": "node scripts/postBuild.js",
     "preview": "vite preview",
     "v:patch": "npm version --no-git-tag-version patch",
     "v:minor": "npm version --no-git-tag-version minor"
@@ -18,6 +21,11 @@
     "LICENSE"
   ],
   "author": "toiyabe",
+  "authors": [
+    {
+      "name": "treimer"
+    }
+  ],
   "license": "MIT",
   "peerDependencies": {
     "grapesjs": "0.22.x"
