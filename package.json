@@ -8,7 +8,7 @@
   "repository": "https://github.com/T-Reimer/grapesjs-blocks-bootstrap-5",
   "scripts": {
     "dev": "vite",
-    "prebuild": "rm -r dist/*",
+    "prebuild": "rm -rf dist/*",
     "build": "tsc ",
     "postbuild": "node scripts/postBuild.js",
     "preview": "vite preview",
