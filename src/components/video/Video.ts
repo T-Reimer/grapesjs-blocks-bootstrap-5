@@ -4,10 +4,8 @@ import videoIcon from "../../icons/youtube-brands.svg";
 export const VideoBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("bs-video", {
-    label: `
-            ${videoIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: videoIcon,
     category: "Media (Bootstrap)",
     content: {
       type: "bs-video",

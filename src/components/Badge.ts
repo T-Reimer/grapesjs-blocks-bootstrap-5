@@ -6,10 +6,8 @@ import { capitalize } from "../utils";
 export const BadgeBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("badge", {
-    label: `
-            ${certificateIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: certificateIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "badge",

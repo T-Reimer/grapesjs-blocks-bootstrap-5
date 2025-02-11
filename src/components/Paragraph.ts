@@ -4,10 +4,8 @@ import paragraphIcon from "../icons/paragraph-solid.svg";
 export const ParagraphBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("paragraph", {
-    label: `
-            ${paragraphIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: paragraphIcon,
     category: "Typography (Bootstrap)",
     content: {
       type: "paragraph",

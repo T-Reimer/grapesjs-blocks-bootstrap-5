@@ -5,10 +5,8 @@ import { FormFieldTrait, PluginConfig } from "../config";
 export const RadioBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("radio", {
-    label: `
-            ${radioIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: radioIcon,
     category: "Forms (Bootstrap)",
     content: `
         <div class="form-check">

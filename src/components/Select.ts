@@ -5,9 +5,8 @@ import { FormFieldTrait, PluginConfig } from "../config";
 export const SelectBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("select", {
-    label: `
-      ${selectIcon}
-      <div>${label}</div>`,
+    label,
+    media: selectIcon,
     category: "Forms (Bootstrap)",
     content: `<select class="form-control" name="select1">
         ${label ? `<option value="">${label}</option>` : ""}

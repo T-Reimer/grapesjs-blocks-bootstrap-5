@@ -5,10 +5,8 @@ import checkIcon from "../icons/check-square-solid.svg";
 export const CheckboxBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("checkbox", {
-    label: `
-            ${checkIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: checkIcon,
     category: "Forms (Bootstrap)",
     content: `
         <div class="form-check">

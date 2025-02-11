@@ -4,10 +4,8 @@ import windowIcon from "../icons/window-maximize-solid.svg";
 export const RowBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("row", {
-    label: `
-            ${windowIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: windowIcon,
     category: "Layout (Bootstrap)",
     content: {
       type: "row",

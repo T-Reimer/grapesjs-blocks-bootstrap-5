@@ -6,10 +6,8 @@ import { capitalize } from "../utils";
 export const AlertBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("alert", {
-    label: `
-            ${exclamationIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: exclamationIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "alert",

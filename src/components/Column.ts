@@ -4,10 +4,8 @@ import columnsIcon from "../icons/columns-solid.svg";
 export const ColumnBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("column", {
-    label: `
-            ${columnsIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: columnsIcon,
     category: "Layout (Bootstrap)",
     content: {
       type: "column",

@@ -9,10 +9,8 @@ import caretIcon from "../icons/caret-square-down-regular.svg";
 export const DropDownBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("dropdown", {
-    label: `
-            ${caretIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: caretIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "dropdown",

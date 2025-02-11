@@ -7,7 +7,8 @@ import { ComponentManager, Editor, Selector } from "grapesjs";
 export const ButtonBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("button", {
-    label: `${buttonIcon}<div>${label}</div>`,
+    label,
+    media: buttonIcon,
     category: "Forms (Bootstrap)",
     content: '<button class="btn btn-primary">Send</button>',
   });

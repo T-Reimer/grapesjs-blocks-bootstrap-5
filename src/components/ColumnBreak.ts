@@ -4,10 +4,8 @@ import equalsIcon from "../icons/equals-solid.svg";
 export const ColumnBreakBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("column_break", {
-    label: `
-            ${equalsIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: equalsIcon,
     category: "Layout (Bootstrap)",
     content: {
       type: "column_break",

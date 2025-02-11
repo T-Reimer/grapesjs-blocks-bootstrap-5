@@ -6,9 +6,8 @@ import { FormFieldTrait, PluginConfig } from "../config";
 export const InputGroupBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("form_group_input", {
-    label: `
-      ${formGroupIcon}
-      <div>${label}</div>`,
+    label,
+    media: formGroupIcon,
     category: "Forms (Bootstrap)",
     content: `
       <div class="mb-3">
@@ -19,9 +18,8 @@ export const InputGroupBlock = (editor: Editor, label: string) => {
   });
 
   bm.add("input_group", {
-    label: `
-      ${inputGroupIcon}
-      <div>${label}</div>`,
+    label,
+    media: inputGroupIcon,
     category: "Forms (Bootstrap)",
     content: `
       <div class="input-group">

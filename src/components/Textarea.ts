@@ -5,9 +5,8 @@ import { FormFieldTrait, PluginConfig } from "../config";
 export const TextareaBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("textarea", {
-    label: `
-      ${textareaIcon}
-      <div>${label}</div>`,
+    label,
+    media: textareaIcon,
     category: "Forms (Bootstrap)",
     content: '<textarea name="textarea1" class="form-control"></textarea>',
   });

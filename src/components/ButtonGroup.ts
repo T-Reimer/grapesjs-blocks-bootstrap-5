@@ -5,10 +5,8 @@ import buttonIcon from "../icons/button.svg";
 export const ButtonGroupBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("button_group", {
-    label: `
-            ${buttonIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: buttonIcon,
     category: "Forms (Bootstrap)",
     content: {
       type: "button_group",

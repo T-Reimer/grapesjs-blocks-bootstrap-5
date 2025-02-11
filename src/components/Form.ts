@@ -8,9 +8,8 @@ const formMsgError = "There was an error sending the form.";
 export const FormBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("form", {
-    label: `
-      ${formIcon}
-      <div>${label}</div>`,
+    label,
+    media: formIcon,
     category: "Forms (Bootstrap)",
     content: `
         <form>
