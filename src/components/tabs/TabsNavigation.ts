@@ -10,10 +10,8 @@ export const TabsBlock = (editor: Editor, c: PluginConfig) => {
   const bm = editor.BlockManager;
 
   bm.add("tabs", {
-    label: `
-            ${ellipsisIcon}
-            <div>${c.labels.tabs}</div>
-        `,
+    label: c.labels.tabs,
+    media: ellipsisIcon,
     category: "Components (Bootstrap)",
     content: `
             <ul class="nav nav-tabs" role="tablist">
@@ -35,20 +33,16 @@ export const TabsBlock = (editor: Editor, c: PluginConfig) => {
         `,
   });
   bm.add("tabs-tab", {
-    label: `
-            ${circleIcon}
-            <div>${c.labels.tab}</div>
-        `,
+    label: c.labels.tab,
+    media: circleIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "tabs-tab",
     },
   });
   bm.add("tabs-tab-pane", {
-    label: `
-            ${windowIcon}
-            <div>${c.labels.tabPane}</div>
-        `,
+    label: c.labels.tabPane,
+    media: windowIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "tabs-tab-pane",
@@ -76,6 +70,7 @@ export default (dc: ComponentManager, config: PluginConfig) => {
         traits: [
           {
             type: "class_select",
+            name: "nav_type",
             options: [
               { value: "nav-tabs", name: "Tabs" },
               { value: "nav-pills", name: "Pills" },
@@ -84,6 +79,7 @@ export default (dc: ComponentManager, config: PluginConfig) => {
           },
           {
             type: "class_select",
+            name: "nav_layout",
             options: [
               { value: "", name: "Left" },
               { value: "nav-fill", name: "Fill" },

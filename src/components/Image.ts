@@ -4,10 +4,8 @@ import imageIcon from "../icons/image-solid.svg";
 export const ImageBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("bs-image", {
-    label: `
-            ${imageIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: imageIcon,
     category: "Media (Bootstrap)",
     content: {
       type: "bs-image",

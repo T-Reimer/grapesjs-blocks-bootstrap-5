@@ -5,9 +5,8 @@ import { FormFieldTrait, PluginConfig } from "../config";
 export const LabelBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("label", {
-    label: `
-      ${labelIcon}
-      <div>${label}</div>`,
+    label,
+    media: labelIcon,
     category: "Forms (Bootstrap)",
     content: "<label>Label</label>",
   });

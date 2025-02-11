@@ -6,10 +6,8 @@ import { capitalize } from "../utils";
 export const BadgeBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("badge", {
-    label: `
-            ${certificateIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: certificateIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "badge",
@@ -36,16 +34,18 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "variant",
             options: [
               { value: "", name: "None" },
               ...contexts.map(function (v) {
                 return { value: "bg-" + v, name: capitalize(v) };
               }),
             ],
-            label: "Context",
+            label: "Variant",
           },
           {
             type: "class_select",
+            name: "shape",
             options: [
               { value: "", name: "Default" },
               { value: "rounded-pill", name: "Pill" },

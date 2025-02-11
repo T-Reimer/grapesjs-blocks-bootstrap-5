@@ -4,10 +4,8 @@ import windowIcon from "../icons/window-maximize-solid.svg";
 export const ContainerBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("container", {
-    label: `
-            ${windowIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: windowIcon,
     category: "Layout (Bootstrap)",
     content: {
       type: "container",
@@ -30,6 +28,7 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "width_type",
             options: [
               { value: "container", name: "Fixed" },
               { value: "container-fluid", name: "Fluid" },

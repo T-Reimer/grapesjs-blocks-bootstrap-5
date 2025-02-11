@@ -4,10 +4,8 @@ import headingIcon from "../icons/heading-solid.svg";
 export const HeaderBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("header", {
-    label: `
-            ${headingIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: headingIcon,
     category: "Typography (Bootstrap)",
     content: {
       type: "header",
@@ -47,6 +45,7 @@ export default (domc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "display_heading",
             options: [
               { value: "", name: "None" },
               { value: "display-1", name: "One (largest)" },

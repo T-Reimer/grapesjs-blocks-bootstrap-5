@@ -6,10 +6,8 @@ import { capitalize } from "../utils";
 export const AlertBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("alert", {
-    label: `
-            ${exclamationIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: exclamationIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "alert",
@@ -36,13 +34,14 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "variant",
             options: [
               { value: "", name: "None" },
               ...contexts.map(function (v) {
                 return { value: "alert-" + v, name: capitalize(v) };
               }),
             ],
-            label: "Context",
+            label: "Variant",
           },
         ].concat(textModel.prototype.defaults.traits),
       }),

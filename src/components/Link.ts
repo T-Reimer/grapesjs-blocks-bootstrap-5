@@ -9,10 +9,8 @@ import linkIcon from "../icons/link-solid.svg";
 export const LinkBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("link", {
-    label: `
-            ${linkIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: linkIcon,
     category: "Basic (Bootstrap)",
     content: {
       type: "link",

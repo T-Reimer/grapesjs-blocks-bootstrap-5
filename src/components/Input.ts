@@ -5,9 +5,8 @@ import { FormFieldTrait, PluginConfig } from "../config";
 export const InputBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("input", {
-    label: `
-      ${inputIcon}
-      <div>${label}</div>`,
+    label,
+    media: inputIcon,
     category: "Forms (Bootstrap)",
     content: '<input name="input1" class="form-control"/>',
   });

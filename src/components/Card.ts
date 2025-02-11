@@ -5,20 +5,16 @@ import cardIcon from "../icons/credit-card-solid.svg";
 export const CardBlock = (editor: Editor, c: PluginConfig) => {
   const bm = editor.BlockManager;
   bm.add("card", {
-    label: `
-            ${cardIcon}
-            <div>${c.labels.card}</div>
-        `,
+    label: c.labels.card,
+    media: cardIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "card",
     },
   });
   bm.add("card_container", {
-    label: `
-            ${cardIcon}
-            <div>${c.labels.card_container}</div>
-        `,
+    label: c.labels.card_container,
+    media: cardIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "card_container",

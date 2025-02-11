@@ -51,6 +51,18 @@ const loadCss = (editor: Editor) => {
 };
 
 /**
+ * @example canvas.scripts = canvasScripts;
+ */
+export const canvasScripts = [
+  "https://code.jquery.com/jquery-3.5.1.slim.min.js",
+  "https://unpkg.com/@popperjs/core@2",
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+];
+export const canvasStyles = [
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+];
+
+/**
  * Setup the plugin details
  *
  * @param editor

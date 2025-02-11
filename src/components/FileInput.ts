@@ -6,10 +6,8 @@ import { FormFieldTrait, PluginConfig } from "../config";
 export const FileInputBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("file-input", {
-    label: `
-            ${fileInputIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: fileInputIcon,
     category: "Forms (Bootstrap)",
     content: `<input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">`,
   });

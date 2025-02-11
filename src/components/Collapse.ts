@@ -4,10 +4,8 @@ import compressIcon from "../icons/compress-solid.svg";
 export const CollapseBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("collapse", {
-    label: `
-            ${compressIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: compressIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "collapse",
@@ -30,6 +28,7 @@ export default (editor: Editor) => {
         traits: [
           {
             type: "class_select",
+            name: "initial_state",
             options: [
               { value: "", name: "Closed" },
               { value: "show", name: "Open" },

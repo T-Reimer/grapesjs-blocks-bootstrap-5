@@ -4,10 +4,8 @@ import columnsIcon from "../icons/columns-solid.svg";
 export const MediaObjectBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("media_object", {
-    label: `
-            ${columnsIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: columnsIcon,
     category: "Layout (Bootstrap)",
     content: `<div class="media">
                  <img class="mr-3" src="">

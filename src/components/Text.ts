@@ -4,10 +4,8 @@ import fontIcon from "../icons/font-solid.svg";
 export const TextBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("text", {
-    label: `
-            ${fontIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: fontIcon,
     category: "Typography (Bootstrap)",
     content: {
       type: "text",

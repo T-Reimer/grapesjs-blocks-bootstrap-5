@@ -5,10 +5,8 @@ import buttonIcon from "../icons/button.svg";
 export const ButtonGroupBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
   bm.add("button_group", {
-    label: `
-            ${buttonIcon}
-            <div>${label}</div>
-        `,
+    label,
+    media: buttonIcon,
     category: "Forms (Bootstrap)",
     content: {
       type: "button_group",
@@ -34,6 +32,7 @@ export default (dc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "size",
             options: [
               { value: "", name: "Default" },
               ...Object.keys(sizes).map(function (k) {
@@ -47,11 +46,12 @@ export default (dc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "direction",
             options: [
               { value: "", name: "Horizontal" },
               { value: "btn-group-vertical", name: "Vertical" },
             ],
-            label: "Size",
+            label: "Direction",
           },
           {
             type: "Text",
