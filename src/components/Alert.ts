@@ -34,13 +34,14 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "variant",
             options: [
               { value: "", name: "None" },
               ...contexts.map(function (v) {
                 return { value: "alert-" + v, name: capitalize(v) };
               }),
             ],
-            label: "Context",
+            label: "Variant",
           },
         ].concat(textModel.prototype.defaults.traits),
       }),

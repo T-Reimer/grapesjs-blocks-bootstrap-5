@@ -28,6 +28,7 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "width_type",
             options: [
               { value: "container", name: "Fixed" },
               { value: "container-fluid", name: "Fluid" },

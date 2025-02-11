@@ -29,6 +29,7 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "gutters",
             options: [
               { value: "", name: "Yes" },
               { value: "g-0", name: "No" },

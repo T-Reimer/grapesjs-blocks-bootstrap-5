@@ -19,6 +19,7 @@ export default (domComponent: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "aspect_ratio",
             options: [
               { value: "ratio-21x9", name: "21:9" },
               { value: "ratio-16x9", name: "16:9" },

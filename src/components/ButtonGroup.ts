@@ -32,6 +32,7 @@ export default (dc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "size",
             options: [
               { value: "", name: "Default" },
               ...Object.keys(sizes).map(function (k) {
@@ -45,11 +46,12 @@ export default (dc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "direction",
             options: [
               { value: "", name: "Horizontal" },
               { value: "btn-group-vertical", name: "Vertical" },
             ],
-            label: "Size",
+            label: "Direction",
           },
           {
             type: "Text",

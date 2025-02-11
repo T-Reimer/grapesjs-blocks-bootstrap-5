@@ -45,6 +45,7 @@ export default (domc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "display_heading",
             options: [
               { value: "", name: "None" },
               { value: "display-1", name: "One (largest)" },

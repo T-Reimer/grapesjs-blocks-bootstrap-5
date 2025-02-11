@@ -28,6 +28,7 @@ export default (editor: Editor) => {
         traits: [
           {
             type: "class_select",
+            name: "initial_state",
             options: [
               { value: "", name: "Closed" },
               { value: "show", name: "Open" },

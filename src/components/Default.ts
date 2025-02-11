@@ -15,6 +15,7 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "text-colour",
             options: [
               { value: "", name: "Default" },
               ...contexts_w_white.map(function (v) {
@@ -25,6 +26,7 @@ export default (domc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "bg-colour",
             options: [
               { value: "", name: "Default" },
               ...contexts_w_white.map(function (v) {
@@ -35,6 +37,7 @@ export default (domc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "border",
             options: [
               { value: "", name: "Default" },
               { value: "border", name: "Full" },
@@ -48,6 +51,7 @@ export default (domc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "border-colour",
             options: [
               { value: "", name: "Default" },
               ...contexts_w_white.map(function (v) {
@@ -58,6 +62,7 @@ export default (domc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "border-radius",
             options: [
               { value: "", name: "Default" },
               { value: "rounded", name: "Rounded" },

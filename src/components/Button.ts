@@ -1,8 +1,8 @@
-import contexts from "../bootstrap-contexts";
+import { ComponentManager, Editor, Selector } from "grapesjs";
 import sizes, { BootstrapBtnSizes } from "../bootstrap-btn-sizes";
+import contexts from "../bootstrap-contexts";
 import buttonIcon from "../icons/button.svg";
 import { capitalize } from "../utils";
-import { ComponentManager, Editor, Selector } from "grapesjs";
 
 export const ButtonBlock = (editor: Editor, label: string) => {
   const bm = editor.BlockManager;
@@ -49,6 +49,7 @@ export default (dc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "variant",
             options: [
               { value: "", name: "None" },
               ...contexts.map((v) => {
@@ -61,10 +62,11 @@ export default (dc: ComponentManager) => {
                 };
               }),
             ],
-            label: "Context",
+            label: "Variant",
           },
           {
             type: "class_select",
+            name: "size",
             options: [
               { value: "", name: "Default" },
               ...Object.keys(sizes).map((k) => {
@@ -78,6 +80,7 @@ export default (dc: ComponentManager) => {
           },
           {
             type: "class_select",
+            name: "width",
             options: [
               { value: "", name: "Inline" },
               { value: "btn-block", name: "Block" },

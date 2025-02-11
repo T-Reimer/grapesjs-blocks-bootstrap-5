@@ -70,6 +70,7 @@ export default (dc: ComponentManager, config: PluginConfig) => {
         traits: [
           {
             type: "class_select",
+            name: "nav_type",
             options: [
               { value: "nav-tabs", name: "Tabs" },
               { value: "nav-pills", name: "Pills" },
@@ -78,6 +79,7 @@ export default (dc: ComponentManager, config: PluginConfig) => {
           },
           {
             type: "class_select",
+            name: "nav_layout",
             options: [
               { value: "", name: "Left" },
               { value: "nav-fill", name: "Fill" },

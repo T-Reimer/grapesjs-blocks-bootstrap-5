@@ -13,10 +13,8 @@ export const CardBlock = (editor: Editor, c: PluginConfig) => {
     },
   });
   bm.add("card_container", {
-    label: `
-            ${cardIcon}
-            <div>${c.labels.card_container}</div>
-        `,
+    label: c.labels.card_container,
+    media: cardIcon,
     category: "Components (Bootstrap)",
     content: {
       type: "card_container",

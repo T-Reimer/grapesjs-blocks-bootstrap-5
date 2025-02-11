@@ -23,6 +23,7 @@ export default (dc: ComponentManager, config: PluginConfig) => {
           "id",
           {
             type: "class_select",
+            name: "animation",
             options: [
               { value: "fade", name: "Fade" },
               { value: "", name: "None" },
@@ -31,6 +32,7 @@ export default (dc: ComponentManager, config: PluginConfig) => {
           },
           {
             type: "class_select",
+            name: "is_active",
             options: [
               { value: "", name: "Inactive" },
               { value: "active", name: "Active" },

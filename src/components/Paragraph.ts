@@ -32,6 +32,7 @@ export default (domc: ComponentManager) => {
         traits: [
           {
             type: "class_select",
+            name: "lead",
             options: [
               { value: "", name: "No" },
               { value: "lead", name: "Yes" },
